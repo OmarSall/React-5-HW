@@ -1,0 +1,14 @@
+.articles-list {
+    list-style: none;
+    padding: 0;
+}
+
+.articles-list li {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+}
+
+.favorite-icon {
+    cursor: pointer;
+    margin-left: 10px;
+}
