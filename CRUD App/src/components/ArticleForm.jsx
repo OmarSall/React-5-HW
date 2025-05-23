@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useArticlesData} from "../hooks/useArticlesData";
-import "./ArticleForm.module.css";
+import styles from "./ArticleForm.module.css";
 
 export function ArticleForm() {
     const {createArticle} = useArticlesData();
@@ -15,7 +15,7 @@ export function ArticleForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="article-form">
+        <form onSubmit={handleSubmit} className={styles["article-form"]}>
             <input
                 placeholder="Title"
                 value={title}

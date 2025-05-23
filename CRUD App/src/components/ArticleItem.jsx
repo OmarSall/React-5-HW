@@ -1,26 +1,29 @@
 import React from "react";
+import styles from "./ArticleItem.module.css";
 
 export function ArticleItem({ article, isFavorite, toggleFavorite, deleteArticle, updateArticle }) {
     return (
-        <div style={{ border: "1px solid #ccc", margin: 8, padding: 8, borderRadius: 6 }}>
-            <h3>
+        <div className={styles["article-item"]}>
+            <h3 className={styles["article-title"]}>
                 {article.title}{" "}
                 <span
                     onClick={() => toggleFavorite(article.id)}
-                    style={{ cursor: "pointer", color: isFavorite ? "gold" : "gray" }}
+                    className={`favorite-star ${isFavorite ? "favorite" : ""}`}
                     title={isFavorite ? "Remove from favorites" : "Add to favorites"}
                 >
-          ★
-        </span>
+                    ★
+                </span>
             </h3>
-            <p>{article.content}</p>
+            <p className={styles["article-content"]}>{article.content}</p>
             <button onClick={() => {
                 const newContent = prompt("Edit content:", article.content);
                 if (newContent !== null && newContent.trim() !== "") {
                     updateArticle(article.id, newContent);
                 }
             }}>Edit</button>{" "}
-            <button onClick={() => deleteArticle(article.id)}>Delete</button>
+            <button onClick={() => deleteArticle(article.id)} className={styles["delete-btn"]}>
+                Delete
+            </button>
         </div>
     );
 }

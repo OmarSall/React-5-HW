@@ -4,7 +4,7 @@ import {
     createArticleAPI,
     deleteArticleAPI,
     updateArticleAPI,
-} from "../utils/api";
+} from "../utils/useApi";
 
 export function useArticlesData() {
     const [articles, setArticles] = useState([]);

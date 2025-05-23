@@ -4,10 +4,12 @@ import {useFavoriteArticles} from "../hooks/useFavoriteArticles";
 import {useSearch} from "../hooks/useSearch";
 import {useArticlesData} from "../hooks/useArticlesData";
 import {useSort} from "../hooks/useSort";
-import "./ArticlesList.module.css";
+import styles from "./ArticlesList.module.css";
+import {ArticleItem} from "./ArticleItem";
+import { Loader } from "./Loader";
 
 export function ArticlesList() {
-    const {articles, deleteArticle, updateArticle} = useArticlesData();
+    const { articles, loading, error, deleteArticle, updateArticle } = useArticlesData();
     const {favorites, toggleFavorite} = useFavoriteArticles();
     const {search, setSearch} = useSearch();
     const {sortOrder, setSortOrder} = useSort();
@@ -15,34 +17,40 @@ export function ArticlesList() {
     const filteredArticles = useFilteredArticles(articles, search);
     const sortedArticles = useSortedArticles(filteredArticles, sortOrder);
 
+    if (loading) {
+        return <Loader />;
+    }
+
     return (
         <div>
             <input
+                type="text"
+                aria-label="Search articles"
                 placeholder="Search by title or content"
                 value={search}
                 onChange={event => setSearch(event.target.value)}
+                className={styles["search-input"]}
             />
             <select
+                aria-label="Sort articles"
                 value={sortOrder}
                 onChange={event => setSortOrder(event.target.value)}
+                className={styles["sort-select"]}
             >
-                <option value="asc">Sort by length: Ascending</option>
-                <option value="desc">Sort by length: Descending</option>
+                <option value="asc">Content length ↑</option>
+                <option value="desc">Content length ↓</option>
             </select>
 
-            <ul className="articles-list">
+            <ul className={styles["articles-list"]}>
                 {sortedArticles.map(article => (
                         <li key={article.id}>
-                            <h2>{article.title}</h2>
-                            <p>{article.content}</p>
-                            <button onClick={() => deleteArticle(article.id)}>Delete</button>
-                            <button onClick={() => updateArticle(article.id)}>Edit</button>
-                            <span
-                                className="favorite-icon"
-                                onClick={() => toggleFavorite(article.id)}
-                            >
-                            {favorites.includes(article.id) ? "⭐" : "☆"}
-                        </span>
+                            <ArticleItem
+                                article={article}
+                                isFavorite={favorites.includes(article.id)}
+                                toggleFavorite={toggleFavorite}
+                                deleteArticle={deleteArticle}
+                                updateArticle={(id, newContent) => updateArticle(id, {content: newContent})}
+                            />
                         </li>
                     )
                 )}

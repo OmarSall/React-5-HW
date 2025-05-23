@@ -1,26 +1,54 @@
-import { useState, useCallback } from "react";
+import { ARTICLES_API_URL } from "../constants/api";
 
-export function useApi() {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+// GET: Fetch all articles
+export async function fetchArticlesAPI() {
+    const response = await fetch(ARTICLES_API_URL);
+    if (!response.ok) {
+        throw new Error("Failed to fetch articles");
+    }
+    return response.json();
+}
 
-    const request = useCallback(async (url, options) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            setLoading(false);
-            return data;
-        } catch (err) {
-            setError(err.message);
-            setLoading(false);
-            throw err;
-        }
-    }, []);
+// POST: Create a new article
+export async function createArticleAPI(article) {
+    const response = await fetch(ARTICLES_API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(article),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to create article");
+    }
 
-    return { loading, error, request };
+    return response.json();
+}
+
+// DELETE: Remove an article by ID
+export async function deleteArticleAPI(id) {
+    const response = await fetch(`${ARTICLES_API_URL}/${id}`, {
+        method: "DELETE",
+    });
+    if (!response.ok) {
+        throw new Error("Failed to delete article");
+    }
+
+    return response.json();
+}
+
+// PATCH: Update an article partially
+export async function updateArticleAPI(id, updatedFields) {
+    const response = await fetch(`${ARTICLES_API_URL}/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedFields),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to update article");
+    }
+
+    return response.json();
 }

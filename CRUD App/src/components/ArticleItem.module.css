@@ -1,0 +1,59 @@
+.article-item {
+    border: 1px solid #ccc;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: left;
+}
+
+.article-title {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.favorite-star {
+    cursor: pointer;
+    color: gray;
+    margin-left: 8px;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.favorite-star.favorite {
+    color: gold;
+}
+
+.article-content {
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 6px 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.edit-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
