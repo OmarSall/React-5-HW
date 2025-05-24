@@ -1,9 +1,7 @@
 import {useState} from "react";
-import {useArticlesData} from "../hooks/useArticlesData";
 import styles from "./ArticleForm.module.css";
 
-export function ArticleForm() {
-    const {createArticle} = useArticlesData();
+export function ArticleForm({ createArticle }) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 

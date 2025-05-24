@@ -5,8 +5,8 @@ export function useArticleForm(onSubmit) {
     const [content, setContent] = useState("");
 
     const handleSubmit = useCallback(
-        (e) => {
-            e.preventDefault();
+        (event) => {
+            event.preventDefault();
             if (!title.trim() || !content.trim()) return;
             onSubmit({ title, content });
             setTitle("");

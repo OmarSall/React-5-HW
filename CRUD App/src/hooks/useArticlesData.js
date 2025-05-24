@@ -27,8 +27,8 @@ export function useArticlesData() {
 
     const createArticle = useCallback(async (article) => {
         try {
-            await createArticleAPI(article);
-            fetchArticles();
+            const newArticle = await createArticleAPI(article);
+            setArticles(prev => [...prev, newArticle]);
         } catch (err) {
             console.error("Create error:", err);
         }
@@ -37,7 +37,7 @@ export function useArticlesData() {
     const deleteArticle = useCallback(async (id) => {
         try {
             await deleteArticleAPI(id);
-            fetchArticles();
+            await fetchArticles();
         } catch (err) {
             console.error("Delete error:", err);
         }
@@ -46,7 +46,7 @@ export function useArticlesData() {
     const updateArticle = useCallback(async (id, updatedFields) => {
         try {
             await updateArticleAPI(id, updatedFields);
-            fetchArticles();
+            await fetchArticles();
         } catch (err) {
             console.error("Update error:", err);
         }

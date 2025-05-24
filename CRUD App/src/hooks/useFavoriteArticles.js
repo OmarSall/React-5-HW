@@ -4,14 +4,10 @@ import { loadFromLocalStorage, saveToLocalStorage } from "../utils/localStorage"
 const FAVORITES_KEY = "favorites";
 
 export function useFavoriteArticles() {
-    const [favorites, setFavorites] = useState([]);
-
-    useEffect(() => {
-        const storedFavorites = loadFromLocalStorage(FAVORITES_KEY);
-        if (storedFavorites) {
-            setFavorites(storedFavorites);
-        }
-    }, []);
+    const [favorites, setFavorites] = useState(() => {
+        const stored = loadFromLocalStorage(FAVORITES_KEY);
+        return stored || [];
+    });
 
     useEffect(() => {
         saveToLocalStorage(FAVORITES_KEY, favorites);

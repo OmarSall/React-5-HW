@@ -2,14 +2,18 @@ import {useFilteredArticles} from "../hooks/useFilteredArticles";
 import {useSortedArticles} from "../hooks/useSortedArticles";
 import {useFavoriteArticles} from "../hooks/useFavoriteArticles";
 import {useSearch} from "../hooks/useSearch";
-import {useArticlesData} from "../hooks/useArticlesData";
 import {useSort} from "../hooks/useSort";
 import styles from "./ArticlesList.module.css";
 import {ArticleItem} from "./ArticleItem";
-import { Loader } from "./Loader";
+import {Loader} from "./Loader";
 
-export function ArticlesList() {
-    const { articles, loading, error, deleteArticle, updateArticle } = useArticlesData();
+export function ArticlesList({
+                                 articles,
+                                 loading,
+                                 error,
+                                 deleteArticle,
+                                 updateArticle,
+                             }) {
     const {favorites, toggleFavorite} = useFavoriteArticles();
     const {search, setSearch} = useSearch();
     const {sortOrder, setSortOrder} = useSort();
@@ -18,7 +22,11 @@ export function ArticlesList() {
     const sortedArticles = useSortedArticles(filteredArticles, sortOrder);
 
     if (loading) {
-        return <Loader />;
+        return <Loader/>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
     }
 
     return (
