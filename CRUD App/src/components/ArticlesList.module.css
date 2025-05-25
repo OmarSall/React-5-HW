@@ -1,0 +1,28 @@
+.search-input {
+    margin-bottom: 10px;
+    padding: 6px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 1rem;
+}
+
+.sort-select {
+    margin-left: 12px;
+    padding: 6px;
+    font-size: 1rem;
+}
+
+.articles-list {
+    list-style: none;
+    padding: 0;
+}
+
+.articles-list li {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+}
+
+.favorite-icon {
+    cursor: pointer;
+    margin-left: 10px;
+}
