@@ -34,7 +34,7 @@ export async function deleteArticleAPI(id) {
         throw new Error("Failed to delete article");
     }
 
-    return response.json();
+    return;
 }
 
 // PATCH: Update an article partially
